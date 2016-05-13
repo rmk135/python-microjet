@@ -6,14 +6,10 @@ import re
 from setuptools import setup
 from setuptools import Command
 
-SHORT_DESCRIPTION = ('Python asynchronous microservices framework')
 
 # Getting description:
 with open('README.rst') as readme_file:
     description = readme_file.read()
-
-    # Removing duplicated short description.
-    description = description.replace(SHORT_DESCRIPTION, '')
 
 # Getting requirements:
 with open('requirements.txt') as version:
@@ -46,7 +42,8 @@ class PublishCommand(Command):
 
 setup(name='MicroJet',
       version=version,
-      description=SHORT_DESCRIPTION,
+      description='Python asynchronous microframework '
+                  'for microservices development',
       long_description=description,
       author='ETS Labs',
       author_email='rmogilatov@gmail.com',
