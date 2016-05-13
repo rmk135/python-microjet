@@ -1,4 +1,4 @@
 MicroJet
 ========
 
-Python asynchronous microframework for microservices development.
+Python 3 asynchronous microframework for microservices development.

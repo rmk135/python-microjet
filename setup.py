@@ -42,7 +42,7 @@ class PublishCommand(Command):
 
 setup(name='MicroJet',
       version=version,
-      description='Python asynchronous microframework '
+      description='Python 3 asynchronous microframework '
                   'for microservices development',
       long_description=description,
       author='ETS Labs',
