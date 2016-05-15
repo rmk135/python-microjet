@@ -42,8 +42,7 @@ class PublishCommand(Command):
 
 setup(name='MicroJet',
       version=version,
-      description='Python 3 asynchronous microframework '
-                  'for microservices development',
+      description='Python 3 asynchronous micro framework powered by asyncio',
       long_description=description,
       author='ETS Labs',
       author_email='rmogilatov@gmail.com',

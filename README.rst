@@ -1,4 +1,14 @@
+========
 MicroJet
 ========
 
-Python 3 asynchronous microframework for microservices development.
+Python 3 asynchronous micro framework powered by asyncio.
+
+Main features:
+
++ Lightweight & extensible core
++ Fully asynchronous
++ Clean & simple application architecture
++ Builtin microjet-to-microjet integration
++ Integrated dependency injection framework
++ Easy-to-use configuration system
