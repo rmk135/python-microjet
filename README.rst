@@ -2,7 +2,7 @@
 MicroJet
 ========
 
-Python 3 asynchronous micro framework powered by asyncio.
+Python 3 asynchronous microservices framework powered by asyncio.
 
 Main features:
 
