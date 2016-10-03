@@ -1,0 +1,2 @@
+dependency-injector>=2.2.0
+pyyaml>=3.12
