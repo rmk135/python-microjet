@@ -3,9 +3,3 @@ services:
         host: db-master.priv
     db_slave:
         host: db-slave.priv
-    redis:
-        host: redis1.priv
-    cassandra:
-        host: cassandra1.priv
-    rabbitmq:
-        host: rabbitmq1.priv

@@ -1,2 +1,2 @@
-dependency-injector>=2.2.0
+dependency-injector>=3.1.5
 pyyaml>=3.12
