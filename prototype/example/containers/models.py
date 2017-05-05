@@ -9,22 +9,18 @@ import example.handlers.example
 from .services import Services
 
 
-class PhotoModels(models.Container):
+class Models(models.Container):
     """Photo model providers container."""
 
-    model_factory = models.DelegatedFactory(example.models.photos.Photo)
+    photos_factory = models.DelegatedFactory(example.models.photos.Photo)
 
-    manager = models.Singleton(example.models.photos.PhotosManager,
-                               photos_factory=model_factory,
-                               db=Services.db)
+    photos_manager = models.Singleton(example.models.photos.PhotosManager,
+                                      photos_factory=photos_factory,
+                                      db=Services.db)
 
+    users_factory = models.DelegatedFactory(example.models.users.User)
 
-class UserModels(models.Container):
-    """User model providers container."""
-
-    model_factory = models.DelegatedFactory(example.models.users.User)
-
-    manager = models.Singleton(example.models.users.UsersManager,
-                               users_factory=model_factory,
-                               photos_manager=PhotoModels.manager,
-                               db=Services.db)
+    users_manager = models.Singleton(example.models.users.UsersManager,
+                                     users_factory=users_factory,
+                                     photos_manager=photos_manager,
+                                     db=Services.db)

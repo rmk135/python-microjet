@@ -3,13 +3,13 @@
 import logging
 
 from example.containers.core import Core
-from example.containers.models import UserModels
+from example.containers.models import Models
 from example.containers.web import WebHandlers
 from example.containers.app import Application
 
 
 if __name__ == '__main__':
-    print(UserModels.manager().get_users())
+    print(Models.users_manager().get_users())
 
     Core.config.update({
         'host': '127.0.0.1',
