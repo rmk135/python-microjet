@@ -10,7 +10,7 @@ from .services import Services
 
 
 class Models(models.Container):
-    """Photo model providers container."""
+    """Model providers container."""
 
     photos_factory = models.DelegatedFactory(example.models.photos.Photo)
 
