@@ -1,5 +1,0 @@
-services:
-    db_master:
-        host: db-master.priv
-    db_slave:
-        host: db-slave.priv
