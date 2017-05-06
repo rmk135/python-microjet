@@ -12,13 +12,5 @@ class Factory(dependency_injector.providers.Factory):
     """Model factory provider."""
 
 
-class DelegatedFactory(dependency_injector.providers.DelegatedFactory):
-    """Model delegated factory provider."""
-
-
 class Singleton(dependency_injector.providers.Singleton):
     """Model singleton provider."""
-
-
-class DelegatedSingleton(dependency_injector.providers.DelegatedSingleton):
-    """Model delegated singleton provider."""
