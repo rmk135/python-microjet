@@ -46,24 +46,22 @@ class Services(containers.DeclarativeContainer):
 class PhotosModule(containers.DeclarativeContainer):
     """Photos functional module."""
 
-    photos_factory = providers.Factory(example.models.photos.Photo)
+    models_factory = providers.Factory(example.models.photos.Photo)
 
-    photos_manager = providers.Singleton(
-        example.models.photos.PhotosManager,
-        photos_factory=photos_factory.delegate(),
-        db=Services.db)
+    manager = providers.Singleton(example.models.photos.PhotosManager,
+                                  photos_factory=models_factory.delegate(),
+                                  db=Services.db)
 
 
 class UsersModule(containers.DeclarativeContainer):
     """Users functional module."""
 
-    users_factory = providers.Factory(example.models.users.User)
+    models_factory = providers.Factory(example.models.users.User)
 
-    users_manager = providers.Singleton(
-        example.models.users.UsersManager,
-        users_factory=users_factory.delegate(),
-        photos_manager=PhotosModule.photos_manager,
-        db=Services.db)
+    manager = providers.Singleton(example.models.users.UsersManager,
+                                  users_factory=models_factory.delegate(),
+                                  photos_manager=PhotosModule.manager,
+                                  db=Services.db)
 
 
 class WebHandlers(containers.DeclarativeContainer):
