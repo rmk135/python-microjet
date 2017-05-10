@@ -43,10 +43,9 @@ class Services(containers.DeclarativeContainer):
                              loop=Core.loop)
 
 
-class Models(containers.DeclarativeContainer):
-    """Model providers container."""
+class PhotosModule(containers.DeclarativeContainer):
+    """Photos functional module."""
 
-    # Photos
     photos_factory = providers.Factory(example.models.photos.Photo)
 
     photos_manager = providers.Singleton(
@@ -54,13 +53,16 @@ class Models(containers.DeclarativeContainer):
         photos_factory=photos_factory.delegate(),
         db=Services.db)
 
-    # Users
+
+class UsersModule(containers.DeclarativeContainer):
+    """Users functional module."""
+
     users_factory = providers.Factory(example.models.users.User)
 
     users_manager = providers.Singleton(
         example.models.users.UsersManager,
         users_factory=users_factory.delegate(),
-        photos_manager=photos_manager,
+        photos_manager=PhotosModule.photos_manager,
         db=Services.db)
 
 
