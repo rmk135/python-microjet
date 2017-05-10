@@ -2,10 +2,7 @@
 
 import logging
 
-from example.containers.core import Core
-from example.containers.models import Models
-from example.containers.web import WebHandlers
-from example.containers.app import Application
+from example.containers import Core, Models, WebHandlers, Application
 
 
 if __name__ == '__main__':
