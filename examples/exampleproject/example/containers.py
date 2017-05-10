@@ -18,7 +18,7 @@ import example.handlers.example
 
 
 class Core(containers.DeclarativeContainer):
-    """Core providers container."""
+    """Core component providers container."""
 
     config = providers.Configuration(name='config')
 
