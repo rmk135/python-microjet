@@ -2,11 +2,13 @@
 
 import logging
 
-from example.containers import Core, UsersModule, WebHandlers, Application
+from example.app.core import Core
+from example.app.modules import Users
+from example.app.web import WebHandlers, Application
 
 
 if __name__ == '__main__':
-    print(UsersModule.manager().get_users())
+    print(Users.manager().get_users())
 
     Core.config.update({
         'host': '127.0.0.1',
