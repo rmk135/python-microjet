@@ -1,1 +1,0 @@
-"""MicroJet core package."""

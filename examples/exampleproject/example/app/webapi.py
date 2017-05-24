@@ -2,8 +2,8 @@
 
 import aiohttp
 
-import dependency_injector.containers as containers
-import dependency_injector.providers as providers
+import microjet.containers as containers
+import microjet.providers as providers
 
 import example.webapi.example
 
@@ -11,7 +11,7 @@ from .core import Core
 from .services import Services
 
 
-class WebHandlers(containers.DeclarativeContainer):
+class WebHandlers(containers.Container):
     """Web handler providers container."""
 
     handle = providers.Factory(example.webapi.example.example,
@@ -19,7 +19,7 @@ class WebHandlers(containers.DeclarativeContainer):
                                db=Services.db)
 
 
-class Application(containers.DeclarativeContainer):
+class Application(containers.Container):
     """Application providers container."""
 
     app_factory = providers.Factory(aiohttp.web.Application,

@@ -3,11 +3,11 @@
 import asyncio
 import logging
 
-import dependency_injector.containers as containers
-import dependency_injector.providers as providers
+import microjet.containers as containers
+import microjet.providers as providers
 
 
-class Core(containers.DeclarativeContainer):
+class Core(containers.Container):
     """Core component providers container."""
 
     config = providers.Configuration(name='config')

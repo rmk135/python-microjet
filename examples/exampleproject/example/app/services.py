@@ -1,7 +1,7 @@
 """Services container."""
 
-import dependency_injector.containers as containers
-import dependency_injector.providers as providers
+import microjet.containers as containers
+import microjet.providers as providers
 
 import microjet.gateways.pg
 import microjet.gateways.redis
@@ -10,7 +10,7 @@ import microjet.gateways.s3
 from .core import Core
 
 
-class Services(containers.DeclarativeContainer):
+class Services(containers.Container):
     """Service providers container."""
 
     db = providers.Singleton(microjet.gateways.pg.PostgreSQL,

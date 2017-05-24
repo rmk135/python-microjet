@@ -1,7 +1,7 @@
 """Functional modules container."""
 
-import dependency_injector.containers as containers
-import dependency_injector.providers as providers
+import microjet.containers as containers
+import microjet.providers as providers
 
 import example.modules.users
 import example.modules.photos
@@ -9,7 +9,7 @@ import example.modules.photos
 from .services import Services
 
 
-class Photos(containers.DeclarativeContainer):
+class Photos(containers.Container):
     """Photos functional module."""
 
     models_factory = providers.Factory(example.modules.photos.Photo)
@@ -19,7 +19,7 @@ class Photos(containers.DeclarativeContainer):
                                   db=Services.db)
 
 
-class Users(containers.DeclarativeContainer):
+class Users(containers.Container):
     """Users functional module."""
 
     models_factory = providers.Factory(example.modules.users.User)
