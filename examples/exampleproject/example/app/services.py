@@ -1,4 +1,4 @@
-"""Services."""
+"""Services container."""
 
 import dependency_injector.containers as containers
 import dependency_injector.providers as providers

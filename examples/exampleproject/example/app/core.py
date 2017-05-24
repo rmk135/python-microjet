@@ -1,4 +1,4 @@
-"""Core."""
+"""Core container."""
 
 import asyncio
 import logging

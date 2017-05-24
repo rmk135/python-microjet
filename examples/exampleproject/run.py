@@ -4,7 +4,7 @@ import logging
 
 from example.app.core import Core
 from example.app.modules import Users
-from example.app.web import WebHandlers, Application
+from example.app.webapi import WebHandlers, Application
 
 
 if __name__ == '__main__':
