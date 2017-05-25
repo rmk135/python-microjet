@@ -2,9 +2,9 @@
 
 import logging
 
-from example.app.core import Core
-from example.app.bundles import Users
-from example.app.webapi import WebHandlers, Application
+from example.core import Core
+from example.bundles import Users
+from example.webapi import WebHandlers, Application
 
 
 if __name__ == '__main__':

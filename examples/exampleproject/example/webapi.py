@@ -2,10 +2,10 @@
 
 import aiohttp
 
-import microjet.containers as containers
-import microjet.providers as providers
+from microjet import containers
+from microjet import providers
 
-import example.webapi.example
+from .app.webapi import example
 
 from .core import Core
 from .services import Services
@@ -14,7 +14,7 @@ from .services import Services
 class WebHandlers(containers.Container):
     """Web handler providers container."""
 
-    handle = providers.Factory(example.webapi.example.example,
+    handle = providers.Factory(example.example,
                                logger=Core.logger,
                                db=Services.db)
 

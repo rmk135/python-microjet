@@ -3,8 +3,8 @@
 import asyncio
 import logging
 
-import microjet.containers as containers
-import microjet.providers as providers
+from microjet import containers
+from microjet import providers
 
 
 class Core(containers.Container):
