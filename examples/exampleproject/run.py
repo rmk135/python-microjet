@@ -3,7 +3,7 @@
 import logging
 
 from example.app.core import Core
-from example.app.modules import Users
+from example.app.bundles import Users
 from example.app.webapi import WebHandlers, Application
 
 
