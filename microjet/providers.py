@@ -1,6 +1,6 @@
 """Inversion of controll providers module."""
 
-import dependency_injector.providers as providers
+from dependency_injector import providers
 
 
 Configuration = providers.Configuration

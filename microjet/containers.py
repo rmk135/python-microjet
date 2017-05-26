@@ -1,6 +1,6 @@
 """Inversion of controll containers module."""
 
-import dependency_injector.containers as containers
+from dependency_injector import containers
 
 
 Container = containers.DeclarativeContainer

@@ -3,12 +3,13 @@
 import logging
 
 from example.core import Core
-from example.bundles import Users
+from example.bundles import Profiles
 from example.webapi import WebHandlers, Application
 
 
 if __name__ == '__main__':
-    print(Users.manager().get_users())
+    print(Profiles.manager())
+    print(Profiles.profiles_factory())
 
     Core.config.update({
         'host': '127.0.0.1',
