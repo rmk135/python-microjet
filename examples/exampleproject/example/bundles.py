@@ -17,10 +17,11 @@ class Profiles(containers.Container):
 
     password_hasher_factory = providers.Factory(profiles.PasswordHasher)
 
-    manager = providers.Singleton(profiles.ProfilesManager,
-                                  profiles_factory=profiles_factory.delegate(),
-                                  password_hasher=password_hasher_factory,
-                                  database=Services.db)
+    profiles_manager = providers.Singleton(
+        profiles.ProfilesManager,
+        profiles_factory=profiles_factory.delegate(),
+        password_hasher=password_hasher_factory,
+        database=Services.db)
 
 
 class Auth(containers.Container):
@@ -28,7 +29,7 @@ class Auth(containers.Container):
 
     auth_tokens_factory = providers.Factory(auth.AuthToken)
 
-    manager = providers.Singleton(
+    auth_manager = providers.Singleton(
         auth.AuthManager,
         auth_tokens_factory=auth_tokens_factory.delegate(),
         database=Services.db)
@@ -39,6 +40,7 @@ class Photos(containers.Container):
 
     photos_factory = providers.Factory(photos.Photo)
 
-    manager = providers.Singleton(photos.PhotosManager,
-                                  photos_factory=photos_factory.delegate(),
-                                  database=Services.db)
+    photos_manager = providers.Singleton(
+        photos.PhotosManager,
+        photos_factory=photos_factory.delegate(),
+        database=Services.db)

@@ -8,7 +8,7 @@ from example.webapi import WebHandlers, Application
 
 
 if __name__ == '__main__':
-    print(Profiles.manager())
+    print(Profiles.profiles_manager())
     print(Profiles.profiles_factory())
 
     Core.config.update({
