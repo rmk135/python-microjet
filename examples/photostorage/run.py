@@ -1,10 +1,10 @@
-"""Entrypoint for example application."""
+"""Application run script."""
 
 import logging
 
-from example.core import Core
-from example.bundles import Profiles
-from example.webapi import WebHandlers, Application
+from photostorage.core import Core
+from photostorage.bundles import Profiles
+from photostorage.webapi import WebHandlers, Application
 
 
 if __name__ == '__main__':
