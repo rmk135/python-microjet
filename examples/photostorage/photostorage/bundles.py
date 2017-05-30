@@ -1,7 +1,7 @@
 """Functional bundles container."""
 
-from microjet import containers
-from microjet import providers
+from microjet.containers import Container
+from microjet.providers import Factory, Singleton
 
 from .app.bundles import profiles
 from .app.bundles import auth
@@ -10,37 +10,35 @@ from .app.bundles import photos
 from .services import Services
 
 
-class Profiles(containers.Container):
+class Profiles(Container):
     """Profiles bundle container."""
 
-    profiles_factory = providers.Factory(profiles.Profile)
+    profiles_factory = Factory(profiles.Profile)
 
-    password_hasher_factory = providers.Factory(profiles.PasswordHasher)
+    password_hasher_factory = Factory(profiles.PasswordHasher)
 
-    profiles_manager = providers.Singleton(
-        profiles.ProfilesManager,
-        profiles_factory=profiles_factory.delegate(),
-        password_hasher=password_hasher_factory,
-        database=Services.db)
+    profiles_manager = Singleton(profiles.ProfilesManager,
+                                 profiles_factory=profiles_factory.delegate(),
+                                 password_hasher=password_hasher_factory,
+                                 database=Services.database)
 
 
-class Auth(containers.Container):
+class Auth(Container):
     """Auth bundle container."""
 
-    auth_tokens_factory = providers.Factory(auth.AuthToken)
+    auth_tokens_factory = Factory(auth.AuthToken)
 
-    auth_manager = providers.Singleton(
+    auth_manager = Singleton(
         auth.AuthManager,
         auth_tokens_factory=auth_tokens_factory.delegate(),
-        database=Services.db)
+        database=Services.database)
 
 
-class Photos(containers.Container):
+class Photos(Container):
     """Photos bundle container."""
 
-    photos_factory = providers.Factory(photos.Photo)
+    photos_factory = Factory(photos.Photo)
 
-    photos_manager = providers.Singleton(
-        photos.PhotosManager,
-        photos_factory=photos_factory.delegate(),
-        database=Services.db)
+    photos_manager = Singleton(photos.PhotosManager,
+                               photos_factory=photos_factory.delegate(),
+                               database=Services.database)

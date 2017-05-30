@@ -3,15 +3,15 @@
 import asyncio
 import logging
 
-from microjet import containers
-from microjet import providers
+from microjet.containers import Container
+from microjet.providers import Configuration, Singleton
 
 
-class Core(containers.Container):
+class Core(Container):
     """Core component providers container."""
 
-    config = providers.Configuration(name='config')
+    config = Configuration(name='config')
 
-    logger = providers.Singleton(logging.getLogger, name='example')
+    logger = Singleton(logging.getLogger, name='example')
 
-    loop = providers.Singleton(asyncio.get_event_loop)
+    loop = Singleton(asyncio.get_event_loop)
