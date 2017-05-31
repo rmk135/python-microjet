@@ -8,8 +8,8 @@ from photostorage.webapi import WebHandlers, Application
 
 
 if __name__ == '__main__':
-    print(Profiles.profiles_manager())
-    print(Profiles.profiles_factory(profile_id=3598))
+    print(Profiles.manager())
+    print(Profiles.models_factory(profile_id=3598))
 
     Core.config.update({
         'host': '127.0.0.1',

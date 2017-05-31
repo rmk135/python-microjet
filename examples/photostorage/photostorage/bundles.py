@@ -13,32 +13,31 @@ from .services import Services
 class Profiles(Container):
     """Profiles bundle container."""
 
-    profiles_factory = Factory(profiles.Profile)
+    models_factory = Factory(profiles.Profile)
 
     password_hasher_factory = Factory(profiles.PasswordHasher)
 
-    profiles_manager = Singleton(profiles.ProfilesManager,
-                                 profiles_factory=profiles_factory.delegate(),
-                                 password_hasher=password_hasher_factory,
-                                 database=Services.database)
+    manager = Singleton(profiles.ProfilesManager,
+                        profiles_factory=models_factory.delegate(),
+                        password_hasher=password_hasher_factory,
+                        database=Services.database)
 
 
 class Auth(Container):
     """Auth bundle container."""
 
-    auth_tokens_factory = Factory(auth.AuthToken)
+    models_factory = Factory(auth.AuthToken)
 
-    auth_manager = Singleton(
-        auth.AuthManager,
-        auth_tokens_factory=auth_tokens_factory.delegate(),
-        database=Services.database)
+    manager = Singleton(auth.AuthManager,
+                        auth_tokens_factory=models_factory.delegate(),
+                        database=Services.database)
 
 
 class Photos(Container):
     """Photos bundle container."""
 
-    photos_factory = Factory(photos.Photo)
+    models_factory = Factory(photos.Photo)
 
-    photos_manager = Singleton(photos.PhotosManager,
-                               photos_factory=photos_factory.delegate(),
-                               database=Services.database)
+    manager = Singleton(photos.PhotosManager,
+                        photos_factory=models_factory.delegate(),
+                        database=Services.database)
