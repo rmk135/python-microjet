@@ -2,16 +2,14 @@
 
 import logging
 
-from photostorage.core import Core
-from photostorage.bundles import Profiles
-from photostorage.webapi import WebHandlers, Application
+from photostorage.app import PhotoStorage
 
 
 if __name__ == '__main__':
-    print(Profiles.manager())
-    print(Profiles.models_factory(profile_id=3598))
+    print(PhotoStorage.profiles_manager())
+    print(PhotoStorage.profile_models_factory(profile_id=3598))
 
-    Core.config.update({
+    PhotoStorage.config.update({
         'host': '127.0.0.1',
         'port': 9090,
         'debug': True,
@@ -19,11 +17,7 @@ if __name__ == '__main__':
     logging.basicConfig(format='%(levelname)s:%(message)s',
                         level=logging.DEBUG)
 
-    app = Application.app_factory()
+    web_app = PhotoStorage.web_app_factory()
+    web_app.router.add_get('/', PhotoStorage.web_handle)
 
-    # app.on_startup.append(init_pg)
-    # app.on_cleanup.append(close_pg)
-
-    app.router.add_get('/', WebHandlers.handle)
-
-    Application.run_app(app)
+    PhotoStorage.run_web_app(web_app)

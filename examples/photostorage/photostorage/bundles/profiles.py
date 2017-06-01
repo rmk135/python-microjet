@@ -6,9 +6,9 @@ from microjet import models
 class ProfilesManager:
     """Profiles manager."""
 
-    def __init__(self, profiles_factory, password_hasher, database):
+    def __init__(self, profile_models_factory, password_hasher, database):
         """Initializer."""
-        self.profiles_factory = profiles_factory
+        self.profile_models_factory = profile_models_factory
         self.password_hasher = password_hasher
         self.database = database
 
