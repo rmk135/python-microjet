@@ -3,12 +3,12 @@
 from microjet import models
 
 
-class ProfilesManager:
-    """Profiles manager."""
+class ProfileService:
+    """Profile service."""
 
-    def __init__(self, profile_models_factory, password_hasher, database):
+    def __init__(self, profile_model_factory, password_hasher, database):
         """Initializer."""
-        self.profile_models_factory = profile_models_factory
+        self.profile_model_factory = profile_model_factory
         self.password_hasher = password_hasher
         self.database = database
 

@@ -3,12 +3,12 @@
 from microjet import models
 
 
-class AuthManager:
-    """Auth manager."""
+class AuthService:
+    """Auth service."""
 
-    def __init__(self, auth_token_models_factory, database):
+    def __init__(self, auth_token_model_factory, database):
         """Initializer."""
-        self.auth_token_models_factory = auth_token_models_factory
+        self.auth_token_model_factory = auth_token_model_factory
         self.database = database
 
 

@@ -25,38 +25,36 @@ class PhotoStorage(Container):
     logger = Singleton(logging.getLogger, name='example')
     loop = Singleton(asyncio.get_event_loop)
 
-    # Services
+    # Gateways
     database = Singleton(pg.PostgreSQL, config=config.pgsql, loop=loop)
     redis = Singleton(redis.Redis, config=config.redis, loop=loop)
     s3 = Singleton(s3.S3, config=config.s3, loop=loop)
 
     # Profiles
-    profile_models_factory = Factory(profiles.Profile)
-    password_hashers_factory = Factory(profiles.PasswordHasher)
-    profiles_manager = Singleton(
-        profiles.ProfilesManager,
-        profile_models_factory=profile_models_factory.delegate(),
-        password_hasher=password_hashers_factory,
+    profile_model_factory = Factory(profiles.Profile)
+    profile_password_hasher_factory = Factory(profiles.PasswordHasher)
+    profile_service = Singleton(
+        profiles.ProfileService,
+        profile_model_factory=profile_model_factory.delegate(),
+        password_hasher=profile_password_hasher_factory,
         database=database)
 
     # Auth
-    auth_token_models_factory = Factory(auth.AuthToken)
-    auth_manager = Singleton(
-        auth.AuthManager,
-        auth_token_models_factory=auth_token_models_factory.delegate(),
+    auth_token_model_factory = Factory(auth.AuthToken)
+    auth_service = Singleton(
+        auth.AuthService,
+        auth_token_model_factory=auth_token_model_factory.delegate(),
         database=database)
 
     # Photos
-    photo_models_factory = Factory(photos.Photo)
-    photos_manager = Singleton(
-        photos.PhotosManager,
-        photo_models_factory=photo_models_factory.delegate(),
+    photo_model_factory = Factory(photos.Photo)
+    photo_service = Singleton(
+        photos.PhotoService,
+        photo_model_factory=photo_model_factory.delegate(),
         database=database)
 
-    # Web API handlers
+    # Web API
     web_handle = Factory(example.example, logger=logger, db=database)
-
-    # Web API app
     web_app_factory = Factory(aiohttp.web.Application, logger=logger,
                               debug=config.debug)
     run_web_app = Callable(aiohttp.web.run_app, host=config.host,

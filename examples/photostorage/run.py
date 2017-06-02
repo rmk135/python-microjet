@@ -6,8 +6,14 @@ from photostorage.app import PhotoStorage
 
 
 if __name__ == '__main__':
-    print(PhotoStorage.profiles_manager())
-    print(PhotoStorage.profile_models_factory(profile_id=3598))
+    print(PhotoStorage.profile_service())
+    print(PhotoStorage.profile_model_factory(profile_id=3598))
+
+    print(PhotoStorage.auth_service())
+    print(PhotoStorage.auth_token_model_factory(auth_token_id=2359))
+
+    print(PhotoStorage.photo_service())
+    print(PhotoStorage.photo_model_factory(photo_id=1263))
 
     PhotoStorage.config.update({
         'host': '127.0.0.1',

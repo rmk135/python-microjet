@@ -3,12 +3,12 @@
 from microjet import models
 
 
-class PhotosManager:
-    """Photos manager."""
+class PhotoService:
+    """Photo service."""
 
-    def __init__(self, photo_models_factory, database):
+    def __init__(self, photo_model_factory, database):
         """Initializer."""
-        self.photo_models_factory = photo_models_factory
+        self.photo_model_factory = photo_model_factory
         self.database = database
 
 
