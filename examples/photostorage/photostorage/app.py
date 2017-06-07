@@ -5,8 +5,8 @@ import logging
 
 import aiohttp
 
-from microjet.containers import Container
-from microjet.providers import Factory, Singleton, Callable, Configuration
+from microjet.ioc import (ApplicationContainer, Configuration, Factory,
+                          Singleton, Callable)
 from microjet.gateways import pg
 from microjet.gateways import redis
 from microjet.gateways import s3
@@ -16,7 +16,7 @@ from . import services
 from . import webapi
 
 
-class PhotoStorage(Container):
+class PhotoStorage(ApplicationContainer):
     """Application container."""
 
     # Core
