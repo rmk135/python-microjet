@@ -5,6 +5,8 @@ Callable and Configuration.
 
 IoC container and its providers are integrated from Dependency Injector
 microframework.
+
+Dependency Injector: https://github.com/ets-labs/python-dependency-injector
 """
 
 from dependency_injector import containers
