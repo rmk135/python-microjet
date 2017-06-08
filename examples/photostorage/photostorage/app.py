@@ -12,6 +12,7 @@ from microjet.gateways import redis
 from microjet.gateways import s3
 
 from . import models
+from . import mappers
 from . import services
 from . import webapi
 
@@ -32,14 +33,22 @@ class PhotoStorage(ApplicationContainer):
     # Profiles
     profile_model_factory = Factory(models.Profile)
     profile_password_hasher_factory = Factory(models.ProfilePasswordHasher)
+    profile_mapper = Singleton(
+        mappers.ProfileMapper,
+        profile_model_factory=profile_model_factory.delegate(),
+        database=database)
     profile_registration_service = Singleton(
         services.ProfileRegistrationService,
         profile_model_factory=profile_model_factory.delegate(),
-        password_hasher=profile_password_hasher_factory,
-        database=database)
+        profile_password_hasher=profile_password_hasher_factory,
+        profile_mapper=profile_mapper)
 
     # Auth
     auth_token_model_factory = Factory(models.AuthToken)
+    auth_token_mapper = Singleton(
+        mappers.AuthTokenMapper,
+        auth_token_model_factory=auth_token_model_factory.delegate(),
+        database=database)
     auth_service = Singleton(
         services.AuthenticationService,
         auth_token_model_factory=auth_token_model_factory.delegate(),
@@ -47,6 +56,10 @@ class PhotoStorage(ApplicationContainer):
 
     # Photos
     photo_model_factory = Factory(models.Photo)
+    photo_mapper = Singleton(
+        mappers.PhotoMapper,
+        photo_model_factory=photo_model_factory.delegate(),
+        database=database)
     photo_uploading_service = Singleton(
         services.PhotoUploadingService,
         photo_model_factory=photo_model_factory.delegate(),

@@ -1,4 +1,4 @@
-"""Example web handler."""
+"""Web API."""
 
 from aiohttp import web
 

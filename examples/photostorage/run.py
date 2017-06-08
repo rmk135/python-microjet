@@ -6,8 +6,8 @@ from photostorage.app import PhotoStorage
 
 
 if __name__ == '__main__':
-    print(PhotoStorage.profile_registration_service())
-    print(PhotoStorage.profile_model_factory(profile_id=3598))
+    print(PhotoStorage.profile_registration_service().register(
+        password='secret'))
 
     print(PhotoStorage.auth_service())
     print(PhotoStorage.auth_token_model_factory(auth_token_id=2359))
