@@ -9,7 +9,7 @@ NUMBER = 1000000
 
 simple_object = timeit.Timer(
     setup="""
-from microjet.providers import Factory
+from microjet.ioc import Factory
 
 class Obj(object):
     pass
@@ -20,7 +20,7 @@ Obj()
 
 simple_factory = timeit.Timer(
     setup="""
-from microjet.providers import Factory
+from microjet.ioc import Factory
 
 class Obj(object):
     pass
@@ -33,7 +33,7 @@ object_factory()
 
 args_3_object = timeit.Timer(
     setup="""
-from microjet.providers import Factory
+from microjet.ioc import Factory
 
 class Obj(object):
     def __init__(self, a, b, c):
@@ -44,7 +44,7 @@ Obj(1, 2, 3)
     """)
 args_3_factory = timeit.Timer(
     setup="""
-from microjet.providers import Factory
+from microjet.ioc import Factory
 
 class Obj(object):
     def __init__(self, a, b, c):
@@ -58,7 +58,7 @@ object_factory()
 
 kwargs_3_object = timeit.Timer(
     setup="""
-from microjet.providers import Factory
+from microjet.ioc import Factory
 
 class Obj(object):
     def __init__(self, a, b, c):
@@ -69,7 +69,7 @@ Obj(a=1, b=2, c=3)
     """)
 kwargs_3_factory = timeit.Timer(
     setup="""
-from microjet.providers import Factory
+from microjet.ioc import Factory
 
 class Obj(object):
     def __init__(self, a, b, c):
