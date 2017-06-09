@@ -1,15 +1,33 @@
 """Services."""
 
 
+class ProfilePasswordService:
+    """Profile password hasher based on scrypt algorithm."""
+
+    def __init__(self, profile_password_hasher):
+        """Initializer."""
+        self._profile_password_hasher = profile_password_hasher
+
+    def set_password(self, profile, password):
+        """Set profile password."""
+        profile.password_hash = self._profile_password_hasher.hash(password)
+        return profile
+
+    def verify_password(self, profile, provided_password):
+        """Verify that provided password matches to profile actual password."""
+        return self._profile_password_hasher.verify(provided_password,
+                                                    profile.password_hash)
+
+
 class ProfileRegistrationService:
     """Profile registration service."""
 
-    def __init__(self, profile_model_factory, profile_password_hasher,
+    def __init__(self, profile_model_factory, profile_password_service,
                  profile_mapper):
         """Initializer."""
-        self.profile_model_factory = profile_model_factory
-        self.profile_password_hasher = profile_password_hasher
-        self.profile_mapper = profile_mapper
+        self._profile_model_factory = profile_model_factory
+        self._profile_password_service = profile_password_service
+        self._profile_mapper = profile_mapper
 
     def register(self, **profile_data):
         """Register profile."""
@@ -17,14 +35,11 @@ class ProfileRegistrationService:
             password = profile_data.pop('password')
         except KeyError:
             raise RuntimeError('Profile password is required')
-        else:
-            password_hash = self.profile_password_hasher.hash_password(
-                password)
 
-        profile = self.profile_model_factory(password_hash=password_hash,
-                                             **profile_data)
+        profile = self._profile_model_factory(**profile_data)
 
-        self.profile_mapper.insert(profile)
+        self._profile_password_service.set_password(profile, password)
+        self._profile_mapper.insert(profile)
 
         return profile
 
@@ -34,8 +49,8 @@ class AuthenticationService:
 
     def __init__(self, auth_token_model_factory, database):
         """Initializer."""
-        self.auth_token_model_factory = auth_token_model_factory
-        self.database = database
+        self._auth_token_model_factory = auth_token_model_factory
+        self._database = database
 
 
 class PhotoUploadingService:
@@ -43,5 +58,5 @@ class PhotoUploadingService:
 
     def __init__(self, photo_model_factory, database):
         """Initializer."""
-        self.photo_model_factory = photo_model_factory
-        self.database = database
+        self._photo_model_factory = photo_model_factory
+        self._database = database

@@ -6,8 +6,8 @@ class ProfileMapper:
 
     def __init__(self, profile_model_factory, database):
         """Initializer."""
-        self.profile_model_factory = profile_model_factory
-        self.database = database
+        self._profile_model_factory = profile_model_factory
+        self._database = database
 
     def insert(self, profile):
         """Insert information into database."""
@@ -20,8 +20,8 @@ class AuthTokenMapper:
 
     def __init__(self, auth_token_model_factory, database):
         """Initializer."""
-        self.auth_token_model_factory = auth_token_model_factory
-        self.database = database
+        self._auth_token_model_factory = auth_token_model_factory
+        self._database = database
 
 
 class PhotoMapper:
@@ -29,5 +29,5 @@ class PhotoMapper:
 
     def __init__(self, photo_model_factory, database):
         """Initializer."""
-        self.photo_model_factory = photo_model_factory
-        self.database = database
+        self._photo_model_factory = photo_model_factory
+        self._database = database

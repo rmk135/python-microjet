@@ -8,4 +8,5 @@ DomainModel = models.DomainModel
 
 IntField = fields.Int
 StringField = fields.String
+DateField = fields.Date
 ModelField = fields.Model

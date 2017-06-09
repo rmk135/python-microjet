@@ -1,13 +1,23 @@
 """Application run script."""
 
+import datetime
 import logging
 
 from photostorage.app import PhotoStorage
 
 
 if __name__ == '__main__':
-    print(PhotoStorage.profile_registration_service().register(
-        password='secret'))
+    profile = PhotoStorage.profile_registration_service().register(
+        password='secret', first_name='Roman', last_name='Mogylatov',
+        birth_date=datetime.date(year=1988, month=5, day=4))
+
+    password_verified = PhotoStorage.profile_password_service()\
+        .verify_password(profile, 'secret')
+
+    print(profile)
+    print('Full name', profile.full_name)
+    print('Age', profile.age)
+    print('Password verified', password_verified)
 
     print(PhotoStorage.auth_service())
     print(PhotoStorage.auth_token_model_factory(auth_token_id=2359))
