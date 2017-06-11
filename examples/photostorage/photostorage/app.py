@@ -19,17 +19,17 @@ from .domain import services
 class PhotoStorage(ApplicationContainer):
     """Application container."""
 
-    # Core
+    # Infrastructure . Core
     config = Configuration(name='config')
     logger = Singleton(logging.getLogger, name='example')
     loop = Singleton(asyncio.get_event_loop)
 
-    # Gateways
+    # Infrastructure . Gateways
     database = Singleton(pg.PostgreSQL, config=config.pgsql, loop=loop)
     redis = Singleton(redis.Redis, config=config.redis, loop=loop)
     s3 = Singleton(s3.S3, config=config.s3, loop=loop)
 
-    # Profile context
+    # Domain . Profile context
     profile_model_factory = Factory(models.Profile)
 
     profile_password_hasher_factory = Factory(
@@ -41,7 +41,7 @@ class PhotoStorage(ApplicationContainer):
         profile_model_factory=profile_model_factory.delegate(),
         database=database)
 
-    # Domain services
+    # Domain . Services
     profile_registration_service = Singleton(
         services.ProfileRegistrationService,
         profile_model_factory=profile_model_factory.delegate(),
