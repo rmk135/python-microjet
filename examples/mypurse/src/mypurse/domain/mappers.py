@@ -11,6 +11,9 @@ class ProfileMapper:
 
     def insert(self, profile):
         """Insert information into database."""
-        # Insert data into database
         profile.profile_id = 2345
-        print('Save profile - {0}'.format(profile))
+        print('Insert profile - {0}'.format(profile))
+
+    def update(self, profile):
+        """Update information into database."""
+        print('Update profile - {0}'.format(profile))

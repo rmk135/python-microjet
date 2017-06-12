@@ -56,6 +56,8 @@ class PasswordUpdate:
         profile.set_password(
             new_password, hashed_by=self._profile_password_hasher)
 
+        self._profile_mapper.update(profile)
+
     def restore_password(self, profile):
         """Restore profile password by email."""
         new_password = \
@@ -63,6 +65,8 @@ class PasswordUpdate:
 
         profile.set_password(
             new_password, hashed_by=self._profile_password_hasher)
+
+        self._profile_mapper.update(profile)
 
         return new_password
 
