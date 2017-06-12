@@ -14,12 +14,13 @@ class ProfileRegistrationService:
     def register(self, **profile_data):
         """Register profile."""
         try:
-            password = profile_data.pop('password')
+            raw_password = profile_data.pop('password')
         except KeyError:
             raise RuntimeError('Profile password is required')
 
         profile = self._profile_model_factory(**profile_data)
-        profile.set_password(password, hasher=self._profile_password_hasher)
+        profile.set_password(
+            raw_password, hashed_by=self._profile_password_hasher)
 
         self._profile_mapper.insert(profile)
 

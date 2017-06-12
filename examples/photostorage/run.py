@@ -12,7 +12,7 @@ if __name__ == '__main__':
         birth_date=datetime.date(year=1988, month=5, day=4))
 
     password_verified = profile.verify_password(
-        'secret', hasher=PhotoStorage.profile_password_hasher_factory())
+        'secret', hashed_by=PhotoStorage.profile_password_hasher_factory())
 
     print(profile)
     print('Full name', profile.full_name)

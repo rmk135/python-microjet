@@ -33,13 +33,13 @@ class Profile(models.DomainModel):
             years_old -= 1
         return years_old
 
-    def set_password(self, password, hasher):
+    def set_password(self, password, *, hashed_by):
         """Set profile password."""
-        self.password_hash = hasher.hash(password)
+        self.password_hash = hashed_by.hash(password)
 
-    def verify_password(self, password, hasher):
+    def verify_password(self, password, *, hashed_by):
         """Verify that provided password matches profle password."""
-        return hasher.verify(password, self.password_hash)
+        return hashed_by.verify(password, self.password_hash)
 
 
 class AuthToken(models.DomainModel):
