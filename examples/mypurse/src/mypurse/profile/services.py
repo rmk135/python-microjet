@@ -23,7 +23,6 @@ class ProfileRegistration:
 
     async def register(self, first_name, last_name, birth_date, password):
         """Register profile."""
-        # Main model
         profile = self._profile_model_factory()
 
         profile.info.update(
@@ -34,14 +33,11 @@ class ProfileRegistration:
             await self._password_hasher.hash(
                 self._password_validator.validate(password)))
 
-        # Activation
         activation_code, activation_code_ttl = \
             self._activation_code_generator.generate_activation_code()
-
         profile.activation.initialize_activation_process(
             code=activation_code, code_ttl=activation_code_ttl)
 
-        # Mapping
         await self._profile_mapper.insert(profile)
 
         return profile
