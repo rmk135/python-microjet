@@ -6,6 +6,7 @@ from domain_models import fields
 
 DomainModel = models.DomainModel
 
+BoolField = fields.Bool
 IntField = fields.Int
 StringField = fields.String
 DateField = fields.Date

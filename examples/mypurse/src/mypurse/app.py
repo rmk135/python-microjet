@@ -1,8 +1,8 @@
 """MyPurse application."""
 
 import asyncio
+import concurrent.futures
 import logging
-import string
 
 import passlib.hash
 
@@ -10,54 +10,79 @@ from microjet.ioc import (ApplicationContainer, Configuration, Factory,
                           Singleton)
 from microjet.gateways import pg
 
-from .domain import models
-from .domain import mappers
-from .domain import services
+from . import profile
+from . import settings
 
 
-class MyPurseApp(ApplicationContainer):
-    """Application container."""
+class Core(ApplicationContainer):
+    """Core container."""
 
-    # Core
     config = Configuration(name='config')
     logger = Singleton(logging.getLogger, name='example')
     loop = Singleton(asyncio.get_event_loop)
+    thread_pool = Singleton(concurrent.futures.ThreadPoolExecutor,
+                            max_workers=config.thread_pool_size)
 
-    # Gateways
-    database = Singleton(pg.PostgreSQL, config=config.pgsql, loop=loop)
 
-    # Profiles
-    profile_model_factory = Factory(models.Profile)
+class Gateways(ApplicationContainer):
+    """Gatrways container."""
 
-    profile_password_hasher_factory = Factory(
-        passlib.hash.scrypt.using,
-        salt_size=32, rounds=16, block_size=8, parallelism=1)
+    database = Singleton(pg.PostgreSQL,
+                         config=Core.config.pgsql, loop=Core.loop)
 
-    profile_password_generator_factory = Factory(
-        models.RandomPasswordGenerator,
-        password_length=8,
-        characters=(string.ascii_lowercase + string.ascii_uppercase +
-                    string.digits + string.punctuation))
+
+class Profile(ApplicationContainer):
+    """Profile domain models container."""
+
+    # Profile model
+    profile_model_factory = Factory(
+        profile.models.Profile,
+        info=Factory(profile.models.ProfileInfo),
+        password=Factory(profile.models.ProfilePassword),
+        activation=Factory(profile.models.ProfileActivation))
 
     profile_mapper = Singleton(
-        mappers.ProfileMapper,
+        profile.mappers.ProfileMapper,
         profile_model_factory=profile_model_factory.delegate(),
-        database=database)
+        database=Gateways.database)
 
-    # Services
+    # Profile info
+    info_validator_factory = Factory(
+        profile.models.ProfileInfoValidator,
+        minimal_age_limit=settings.MINIMAL_AGE_LIMIT)
+
+    # Profile password
+    password_validator_factory = Factory(
+        profile.models.ProfilePasswordValidator,
+        minimal_length=settings.MINIMAL_PASSWORD_LENGTH)
+
+    password_hasher_factory = Factory(
+        profile.models.ProfilePasswordHasher,
+        hasher=Factory(passlib.hash.scrypt.using,
+                       salt_size=32, rounds=16, block_size=8, parallelism=1),
+        thread_pool=Core.thread_pool,
+        loop=Core.loop)
+
+    # Profile activation
+    activation_code_generator_factory = Factory(
+        profile.models.ProfileActivationCodeGenerator,
+        code_length=settings.ACTIVATION_CODE_LENGTH,
+        code_characters=settings.ACTIVATION_CODE_CHARACTERS,
+        code_ttl=settings.ACTIVATION_CODE_TTL)
+
+    # Profile services
     registration_service = Singleton(
-        services.Registration,
+        profile.services.ProfileRegistration,
         profile_model_factory=profile_model_factory.delegate(),
-        profile_password_hasher=profile_password_hasher_factory,
+        info_validator=info_validator_factory,
+        activation_code_generator=activation_code_generator_factory,
+        password_validator=password_validator_factory,
+        password_hasher=password_hasher_factory,
         profile_mapper=profile_mapper)
 
-    authentication_service = Singleton(
-        services.Authentication,
-        profile_password_hasher=profile_password_hasher_factory,
-        profile_mapper=profile_mapper)
-
-    password_update_service = Singleton(
-        services.PasswordUpdate,
-        profile_password_hasher=profile_password_hasher_factory,
-        profile_password_generator=profile_password_generator_factory,
+    updater_service = Singleton(
+        profile.services.ProfileUpdater,
+        info_validator=info_validator_factory,
+        password_validator=password_validator_factory,
+        password_hasher=password_hasher_factory,
         profile_mapper=profile_mapper)
